@@ -1,0 +1,27 @@
+split:
+  inputs:
+    trans_data: data/data.txt
+  outputs:
+    test_data: data/test_data.txt
+    train_data: data/train_data.txt
+  param:
+    test_fraction: 0.2
+
+train:
+  inputs:
+    train_data: data/train_data.txt
+  outputs:
+    model: models/model.joblib
+  param:
+    alpha: 1.2
+
+evaluate:
+  inputs:
+    test_data: data/test_data.txt
+    train_data: data/train_data.txt
+    model: models/model.joblib
+  outputs:
+    result: reports/result.csv
+    metric: reports/metrics.json
+
+
