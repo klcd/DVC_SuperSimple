@@ -18,7 +18,7 @@ def split_data_from_config(config_path):
         config = yaml.safe_load(fid)
 
     #Load data from inputs
-    data = np.genfromtxt(config['split']['inputs']['raw_data'])
+    data = np.genfromtxt(config['split']['inputs']['trans_data'])
 
     #Split data
     train_data, test_data = split_data(data,
