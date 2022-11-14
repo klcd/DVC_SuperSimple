@@ -1,0 +1,8 @@
+split:
+  inputs:
+    raw_data: data/data.txt
+  outputs:
+    test_data: data/test_data.txt
+    train_data: data/train_data.txt
+
+  test_fraction: 0.5
