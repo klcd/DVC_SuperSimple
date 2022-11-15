@@ -18,7 +18,7 @@ python src/stages/split.py --config params.yaml
 dvc run --name evaluate \
 --deps data/test_data.txt \
 --deps data/train_data.txt \
---outs data/result.csv \
+--outs reports/result.csv \
 --metrics reports/metrics.json \
 python src/stages/evaluate.py --config params.yaml
 
@@ -31,6 +31,6 @@ dvc exp run -S transform.param.param2=2
 dvc exp run -S transform.param.param2=3
 dvc exp run -S transform.param.param2=4
 
-dvc plots modify -x x -y y_train --title "Example" data/result.csv
+dvc plots modify -x x -y y_train --title "Example" reports/result.csv
 
 dvc destroy

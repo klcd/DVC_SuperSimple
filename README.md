@@ -71,7 +71,7 @@ and the final stage
 dvc run --name evaluate \
 --deps data/test_data.txt \
 --deps data/train_data.txt \
---outs data/result.csv \
+--outs reports/result.csv \
 --metrics reports/metrics.json \
 python src/stages/evaluate.py --config params.yaml
 
@@ -120,7 +120,7 @@ Now we want to add plots to look a experiments and especially to compare them.
 To have a quick look we can use ```dvc plots show <path_to_output>``` and point to an output of a stage
 
 We can use the following command to create a plot
-```dvc plots modify -x x -y y_train --title "Example" data/result.csv```
+```dvc plots modify -x x -y y_train --title "Example" report/result.csv```
 
 In the ```dvc.yaml``` the output is moved from the outs section into a plots section that can be further modified.
 

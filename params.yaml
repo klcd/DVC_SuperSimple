@@ -23,7 +23,7 @@ evaluate:
     test_data: data/test_data.txt
     train_data: data/train_data.txt
   outputs:
-    result: data/result.csv
+    result: reports/result.csv
     metric: reports/metrics.json
 
 
