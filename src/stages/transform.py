@@ -5,23 +5,23 @@ import argparse
 def transform_data(data, transform_function=lambda x : x**2):
     return transform_function(data)
 
+def create_func(param0, param1, param2, **kwargs):
+    return lambda x: param0+param1*x+param2*x**2
 
 def transform_data_from_config(config_path):
 
-    #Load config
+    #1. Load config
     with open(config_path, "r") as fid:
         config = yaml.safe_load(fid)
 
-    #Load data from inputs
+    #2. Load data dependencies
     data = np.genfromtxt(config['transform']['inputs']['raw_data'])
 
-    #Split data
-
-    func = lambda x: config['transform']['param2']*x**2 +config['transform']['param1']*x + config['transform']['param0']
-
+    #3. Split data
+    func = create_func(**config['transform']['param'])
     trans_data = transform_data(data, func)
 
-    #Save the data to outputs
+    #4. Save the data to outputs
     np.savetxt(config['transform']['outputs']['trans_data'], trans_data)
 
 

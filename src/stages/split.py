@@ -2,7 +2,7 @@ import numpy as np
 import yaml
 import argparse
 
-def split_data(data, test_fraction):
+def split_data(data, test_fraction, **kwargs):
 
     max_ind = int(np.floor(data.size*test_fraction))
     train_data = data[:max_ind]
@@ -22,7 +22,7 @@ def split_data_from_config(config_path):
 
     #Split data
     train_data, test_data = split_data(data,
-                                       config['split']['test_fraction'])
+                                       **config['split']['param'])
 
     #Save the data to outputs
     np.savetxt(config['split']['outputs']['test_data'], test_data)

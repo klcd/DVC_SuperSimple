@@ -4,9 +4,10 @@ transform:
   outputs:
     trans_data: data/transformed_data.txt
 
-  param0: 0
-  param1: 0
-  param2: 0
+  param:
+    param0: 0.0
+    param1: 0.0
+    param2: 0.0
 
 split:
   inputs:
@@ -14,8 +15,8 @@ split:
   outputs:
     test_data: data/test_data.txt
     train_data: data/train_data.txt
-
-  test_fraction: 0.5
+  param:
+    test_fraction: 0.5
 
 evaluate:
   inputs:
