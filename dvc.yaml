@@ -1,0 +1,29 @@
+stages:
+  transform:
+    cmd: python src/stages/transform.py --config params.yaml
+    deps:
+    - data/data.txt
+    params:
+    - transform.param0
+    - transform.param1
+    - transform.param2
+    outs:
+    - data/transformed_data.txt
+  split:
+    cmd: python src/stages/split.py --config params.yaml
+    deps:
+    - data/transformed_data.txt
+    params:
+    - split.test_fraction
+    outs:
+    - data/test_data.txt
+    - data/train_data.txt
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+    - data/test_data.txt
+    - data/train_data.txt
+    outs:
+    - data/result.csv
+    metrics:
+    - reports/metrics.json

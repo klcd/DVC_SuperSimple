@@ -48,6 +48,9 @@ dvc run --name evaluate \
 --deps data/test_data.txt \
 --deps data/train_data.txt \
 --outs data/result.csv \
+--metrics reports/metrics.json \
+python src/stages/evaluate.py --config params.yaml
+
 ```
 
 The created pipeline can now be visualized with
@@ -59,6 +62,9 @@ Also we can run our pipeline using
 ```dvc repro```
 
 if you used the  ```run``` command above nothing should happen because the current status of the pipeline is saved in a file called ```dvc.lock``` that tracks all our inputs, outputs and parameters. Make sure to have a look at it.
+
+To convince yourself that dvc is doing a great job. Go to the data/data.txt file and change an number and run ```dvc repro``` again.
+
 
 # Experiments and metrics
 
