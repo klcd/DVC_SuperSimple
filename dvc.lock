@@ -1,0 +1,51 @@
+schema: '2.0'
+stages:
+  transform:
+    cmd: python src/stages/transform.py --config params.yaml
+    deps:
+    - path: data/data.txt
+      md5: 340d604ab4b189371a61cd876a07430c
+      size: 500
+    params:
+      params.yaml:
+        transform.param:
+          param0: 0.0
+          param1: 0.0
+          param2: 2
+    outs:
+    - path: data/transformed_data.txt
+      md5: b94d1db39fd3a9c4a393f148a5c52203
+      size: 500
+  split:
+    cmd: python src/stages/split.py --config params.yaml
+    deps:
+    - path: data/transformed_data.txt
+      md5: b94d1db39fd3a9c4a393f148a5c52203
+      size: 500
+    params:
+      params.yaml:
+        split.param:
+          test_fraction: 0.5
+    outs:
+    - path: data/test_data.txt
+      md5: c7fe39969bca3e01a20dcdf9bb8c7833
+      size: 250
+    - path: data/train_data.txt
+      md5: 9987d400e97f8c046fd06c1ab3a8bc63
+      size: 250
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+    - path: data/test_data.txt
+      md5: c7fe39969bca3e01a20dcdf9bb8c7833
+      size: 250
+    - path: data/train_data.txt
+      md5: 9987d400e97f8c046fd06c1ab3a8bc63
+      size: 250
+    outs:
+    - path: reports/metrics.json
+      md5: 84c4e442a44b9ad606308705c2f4ec8c
+      size: 56
+    - path: reports/result.csv
+      md5: 4d74a746008107e7de58cbf480df4d11
+      size: 4199
