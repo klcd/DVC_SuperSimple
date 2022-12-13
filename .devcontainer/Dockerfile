@@ -9,7 +9,7 @@ ENV LANG en_US.utf8
 RUN apt-get update && apt-get install -y git curl vim
 
 #Packages
-RUN pip3 install numpy yaml json argparse pandas scikit-learn
+RUN pip3 install numpy pyyaml argparse pandas scikit-learn
 RUN pip3 install dvc
 
 
