@@ -8,6 +8,7 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
 from joblib import load
 
+
 def evaluate_model(model, test_data, train_data):
 
     metric = {}
@@ -21,6 +22,7 @@ def evaluate_model(model, test_data, train_data):
     metric['mape_train'] = mean_absolute_percentage_error(y_pred=y_pred_train,y_true=train_data[:,1])
 
     return metric, y_pred_test, y_pred_train
+
 
 def evaluate_model_from_config(config_path):
 
