@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y git curl vim
 #Packages
 RUN pip3 install numpy pyyaml argparse pandas scikit-learn
 RUN pip3 install dvc
+RUN pip3 install python-box[all]~=6.0
 
 
 #Add user

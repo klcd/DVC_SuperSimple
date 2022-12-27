@@ -5,6 +5,9 @@
     "extensions": [
 		"eamodio.gitlens",
 		"vscodevim.vim",
+        "ms-python.python",
+        "github.copilot"
+
 	],
     "containerUser": "datascientist"
 }

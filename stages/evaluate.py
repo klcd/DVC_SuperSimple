@@ -8,7 +8,6 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
 from joblib import load
 
-
 def evaluate_model(model, test_data, train_data):
 
     metric = {}
@@ -23,24 +22,19 @@ def evaluate_model(model, test_data, train_data):
 
     return metric, y_pred_test, y_pred_train
 
-
-def evaluate_model_from_config(config_path):
-
-    #Load config
-    with open(config_path, "r") as fid:
-        config = yaml.safe_load(fid)
+def evaluate_model_from_config(config):
 
     #Load data from inputs
-    test_data = np.genfromtxt(config['evaluate']['inputs']['test_data'])
-    train_data = np.genfromtxt(config['evaluate']['inputs']['train_data'])
+    test_data = np.genfromtxt(config.evaluate.inputs.test_data)
+    train_data = np.genfromtxt(config.evaluate.inputs.train_data)
 
-    model = load(config['evaluate']['inputs']['model'])
+    model = load(config.evaluate.inputs.model)
 
     #Evaluate and save to outputs
     metric, y_pred_test, y_pred_train = evaluate_model(model, test_data, train_data)
     metrics_json = json.dumps(metric)
 
-    with open(config['evaluate']['outputs']['metric'], 'w') as fid:
+    with open(config.evaluate.outputs.metric, 'w') as fid:
         fid.write(metrics_json)
 
     df = pd.DataFrame(np.concatenate([np.concatenate([test_data, train_data], axis=0),
@@ -50,16 +44,15 @@ def evaluate_model_from_config(config_path):
                                     axis=1)
                     )
     df.columns = ['x', 'y', 'y_pred', 'train']
-    df.to_csv(config['evaluate']['outputs']['result'], index=False)
+    df.to_csv(config.evaluate.outputs.result, index=False)
 
 
 if __name__ == "__main__":
     print("Started evaluate stage")
 
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', dest='config_path', required=True)
-    args = arg_parser.parse_args()
-
-    evaluate_model_from_config(args.config_path)
+    from helpers.load_config import default_config_parser, load_config_from_command_line
+    args = default_config_parser()
+    config = load_config_from_command_line(args.config_path)
+    evaluate_model_from_config(config)
 
     print("Finished evaluate stage")

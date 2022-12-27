@@ -11,31 +11,28 @@ def split_data(data, test_fraction, **kwargs):
     return train_data, test_data
 
 
-def split_data_from_config(config_path):
-
-    #Load config
-    with open(config_path, "r") as fid:
-        config = yaml.safe_load(fid)
+def split_data_from_config(config):
 
     #Load data from inputs
-    data = np.genfromtxt(config['split']['inputs']['trans_data'])
+    data = np.genfromtxt(config.split.inputs.trans_data)
 
     #Split data
     train_data, test_data = split_data(data,
-                                       **config['split']['param'])
+                                       **config.split.param)
 
     #Save the data to outputs
-    np.savetxt(config['split']['outputs']['test_data'], test_data)
-    np.savetxt(config['split']['outputs']['train_data'], train_data)
+    np.savetxt(config.split.outputs.test_data, test_data)
+    np.savetxt(config.split.outputs.train_data, train_data)
 
 
 if __name__ == "__main__":
     print("Started split stage")
 
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', dest='config_path', required=True)
-    args = arg_parser.parse_args()
+    from helpers.load_config import default_config_parser, load_config_from_command_line
 
-    split_data_from_config(args.config_path)
+    args = default_config_parser()
+    config = load_config_from_command_line(args.config_path)
+
+    split_data_from_config(config)
 
     print("Finished split stage")

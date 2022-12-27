@@ -13,27 +13,23 @@ def setup_train_model(alpha, data_train, **kwargs):
     return model
 
 
-def setup_train_model_from_config(config_path):
-
-    #1. Load config
-    with open(config_path, "r") as fid:
-        config = yaml.safe_load(fid)
+def setup_train_model_from_config(config):
 
     #2. Load data dependencies
-    data = np.genfromtxt(config['train']['inputs']['train_data'])
+    data = np.genfromtxt(config.train.inputs.train_data)
 
     #3. Setup & Train Model
-    model = setup_train_model(config['train']['param']['alpha'], data)
+    model = setup_train_model(config.train.param.alpha, data)
 
     #4. Save model
-    dump(model, config['train']['outputs']['model'])
+    dump(model, config.train.outputs.model)
 
 if __name__ == "__main__":
     print("Started train stage")
 
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', dest='config_path', required=True)
-    args = arg_parser.parse_args()
-    setup_train_model_from_config(args.config_path)
+    from helpers.load_config import default_config_parser, load_config_from_command_line
+    args = default_config_parser()
+    config = load_config_from_command_line(args.config_path)
+    setup_train_model_from_config(config)
 
     print("Finished train stage")
