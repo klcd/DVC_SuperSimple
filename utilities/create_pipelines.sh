@@ -9,14 +9,14 @@ dvc run --name split \
 
 dvc run --name train \
 --deps data/train_data.csv \
---outs models/model.joblib \
+--outs models/model_mlem \
 --params train.param \
 python stages/train.py --config params.yaml
 
 dvc run --name evaluate \
 --deps data/test_data.csv \
 --deps data/train_data.csv \
---deps models/model.joblib \
+--deps models/model_mlem \
 --outs reports/result.csv \
 --metrics reports/metrics.json \
 python stages/evaluate.py --config params.yaml

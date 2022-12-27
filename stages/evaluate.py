@@ -4,9 +4,8 @@ import json
 import argparse
 import pandas as pd
 
-
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
-from joblib import load
+from mlem.api import load
 
 def evaluate_model(model, test_data, train_data):
 

@@ -2,7 +2,6 @@ import numpy as np
 import yaml
 from sklearn.linear_model import Ridge
 import argparse
-from joblib import dump
 import pandas as pd
 from mlem.api import save
 import pickle
@@ -26,8 +25,7 @@ def setup_train_model_from_config(config):
     #3. Setup & Train Model
     model = setup_train_model(config.train.param.alpha, data)
 
-    #4. Save model
-    dump(model, config.train.outputs.model)
+    #4. Save model with MLEM
     save(model, config.train.outputs.model_mlem, sample_data=data[['x']])
 
 
