@@ -3,6 +3,7 @@ import yaml
 from sklearn.linear_model import Ridge
 import argparse
 from joblib import dump
+from mlem.api import save
 
 
 def setup_train_model(alpha, data_train, **kwargs):
@@ -10,6 +11,7 @@ def setup_train_model(alpha, data_train, **kwargs):
     model = Ridge(alpha=alpha, fit_intercept=True)
     model.fit(data_train[:, 0].reshape(-1, 1), data_train[:, 1].reshape(-1, 1))
 
+    np.savetxt("test.txt", data_train[:, 0].reshape(-1, 1))
     return model
 
 
@@ -23,6 +25,8 @@ def setup_train_model_from_config(config):
 
     #4. Save model
     dump(model, config.train.outputs.model)
+    save(model, config.train.outputs.model_mlem, sample_data=data[:, 0].reshape(-1, 1))
+
 
 if __name__ == "__main__":
     print("Started train stage")

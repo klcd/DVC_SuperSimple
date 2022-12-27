@@ -12,8 +12,9 @@ train:
     train_data: data/train_data.txt
   outputs:
     model: models/model.joblib
+    model_mlem: models/model_mlem
   param:
-    alpha: 1.2
+    alpha: 4
 
 evaluate:
   inputs:

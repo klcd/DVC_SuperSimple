@@ -16,8 +16,6 @@ def load_config_from_command_line(config_path):
     with open(config_path, "r") as fid:
         config = yaml.safe_load(fid)
 
-
-
     return box.ConfigBox(config)
 
 

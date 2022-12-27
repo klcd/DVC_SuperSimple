@@ -2,3 +2,5 @@ dvc_plots
 data
 reports
 models
+__pycache__/
+*pyc
