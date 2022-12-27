@@ -1,15 +1,15 @@
 split:
   inputs:
-    trans_data: data/data.txt
+    trans_data: data/data.csv
   outputs:
-    test_data: data/test_data.txt
-    train_data: data/train_data.txt
+    test_data: data/test_data.csv
+    train_data: data/train_data.csv
   param:
     test_fraction: 0.2
 
 train:
   inputs:
-    train_data: data/train_data.txt
+    train_data: data/train_data.csv
   outputs:
     model: models/model.joblib
     model_mlem: models/model_mlem
@@ -18,8 +18,8 @@ train:
 
 evaluate:
   inputs:
-    test_data: data/test_data.txt
-    train_data: data/train_data.txt
+    test_data: data/test_data.csv
+    train_data: data/train_data.csv
     model: models/model.joblib
   outputs:
     result: reports/result.csv

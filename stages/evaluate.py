@@ -12,21 +12,21 @@ def evaluate_model(model, test_data, train_data):
 
     metric = {}
 
-    y_pred_test = model.predict(test_data[:,0].reshape(-1,1))
-    metric['mae_test'] = mean_absolute_error(y_pred= y_pred_test, y_true=test_data[:,1])
-    metric['mape_test'] = mean_absolute_percentage_error(y_pred=y_pred_test, y_true=test_data[:,1])
+    y_pred_test = model.predict(test_data[['x']])
+    metric['mae_test'] = mean_absolute_error(y_pred= y_pred_test, y_true=test_data['y'])
+    metric['mape_test'] = mean_absolute_percentage_error(y_pred=y_pred_test, y_true=test_data['y'])
 
-    y_pred_train = model.predict(train_data[:,0].reshape(-1,1))
-    metric['mae_train'] = mean_absolute_error(y_pred=y_pred_train, y_true=train_data[:,1])
-    metric['mape_train'] = mean_absolute_percentage_error(y_pred=y_pred_train,y_true=train_data[:,1])
+    y_pred_train = model.predict(train_data[['x']])
+    metric['mae_train'] = mean_absolute_error(y_pred=y_pred_train, y_true=train_data['y'])
+    metric['mape_train'] = mean_absolute_percentage_error(y_pred=y_pred_train,y_true=train_data['y'])
 
     return metric, y_pred_test, y_pred_train
 
 def evaluate_model_from_config(config):
 
     #Load data from inputs
-    test_data = np.genfromtxt(config.evaluate.inputs.test_data)
-    train_data = np.genfromtxt(config.evaluate.inputs.train_data)
+    test_data = pd.read_csv(config.evaluate.inputs.test_data)
+    train_data = pd.read_csv(config.evaluate.inputs.train_data)
 
     model = load(config.evaluate.inputs.model)
 
@@ -37,13 +37,9 @@ def evaluate_model_from_config(config):
     with open(config.evaluate.outputs.metric, 'w') as fid:
         fid.write(metrics_json)
 
-    df = pd.DataFrame(np.concatenate([np.concatenate([test_data, train_data], axis=0),
-                                      np.concatenate([y_pred_test, y_pred_train], axis=0),
-                                      np.concatenate([np.zeros(y_pred_test.size), np.ones(y_pred_train.size)], axis=0).reshape(-1,1)
-                                      ],
-                                    axis=1)
-                    )
-    df.columns = ['x', 'y', 'y_pred', 'train']
+    df = pd.concat([test_data, train_data])
+    df['y_pred'] = np.concatenate([y_pred_test, y_pred_train])
+    df['train'] = np.concatenate([np.zeros(y_pred_test.size), np.ones(y_pred_train.size)], axis=0)
     df.to_csv(config.evaluate.outputs.result, index=False)
 
 

@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 N = 100
 x = np.linspace(0, 2*np.pi,N)
@@ -7,8 +8,8 @@ x = np.linspace(0, 2*np.pi,N)
 y = np.random.uniform(-5,5,1)*x+np.random.uniform(-5,5,1)
 noise = np.random.normal(0,.7, N)
 
-with open('./data/underlying_data.txt', 'w') as fid:
-    np.savetxt(fid, np.stack([x,y]).T)
+df = pd.DataFrame({'x':x, 'y':y+noise})
+df.to_csv('./data/data.csv', index=False)
 
-with open('./data/data.txt', 'w') as fid:
-    np.savetxt(fid, np.stack([x,y+noise]).T)
+df = pd.DataFrame({'x':x, 'y':y})
+df.to_csv('./data/underlying_data.csv', index=False)

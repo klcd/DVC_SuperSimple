@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import yaml
 import argparse
 
@@ -14,15 +15,15 @@ def split_data(data, test_fraction, **kwargs):
 def split_data_from_config(config):
 
     #Load data from inputs
-    data = np.genfromtxt(config.split.inputs.trans_data)
+    data = pd.read_csv(config.split.inputs.trans_data)
 
     #Split data
     train_data, test_data = split_data(data,
                                        **config.split.param)
 
     #Save the data to outputs
-    np.savetxt(config.split.outputs.test_data, test_data)
-    np.savetxt(config.split.outputs.train_data, train_data)
+    test_data.to_csv(config.split.outputs.test_data, index=False)
+    train_data.to_csv(config.split.outputs.train_data, index=False)
 
 
 if __name__ == "__main__":
@@ -32,7 +33,6 @@ if __name__ == "__main__":
 
     args = default_config_parser()
     config = load_config_from_command_line(args.config_path)
-
     split_data_from_config(config)
 
     print("Finished split stage")
