@@ -1,0 +1,6 @@
+mlem==0.4.0
+numpy==1.24.1
+pandas==1.5.2
+python_box==6.1.0
+PyYAML==6.0
+scikit_learn==1.2.0
