@@ -1,6 +1,6 @@
 split:
   inputs:
-    trans_data: data/data.csv
+    trans_data: initial_data/data.csv
   outputs:
     test_data: data/test_data.csv
     train_data: data/train_data.csv
