@@ -30,7 +30,7 @@ In the folder ```environment``` you can find a conda/pip environment that includ
 
 ## Data
 
-In the folder ```data``` we have a file called ```data.txt``` it that contains the x and y coordinates generated
+In the folder ```data``` we have a file called ```data.csv``` it that contains the x and y coordinates generated
 with the script ```create_data.py``` in the utilities folder.
 
 ## Stages and Parameters
@@ -102,9 +102,10 @@ We can now add our split stage.
 
 ```
 dvc run --name split \
- --deps data/data.txt \
- --outs data/test_data.txt \
- --outs data/train_data.txt \
+ --deps stages/split.py \
+ --deps initial_data/data.csv \
+ --outs data/test_data.csv \
+ --outs data/train_data.csv \
  --params split.param \
  python stages/split.py --config params.yaml
 ```
@@ -113,7 +114,8 @@ the train stage
 
 ```
 dvc run --name train \
---deps data/train_data.txt \
+ --deps stages/train.py \
+--deps data/train_data.csv \
 --outs models/model.joblib \
 --params train.param \
 python stages/train.py --config params.yaml
@@ -123,8 +125,9 @@ and the final evaluation stage
 
 ```
 dvc run --name evaluate \
---deps data/test_data.txt \
---deps data/train_data.txt \
+--deps stages/evaluate.py \
+--deps data/test_data.csv \
+--deps data/train_data.csv \
 --deps models/model.joblib \
 --outs reports/result.csv \
 --metrics reports/metrics.json \
@@ -153,11 +156,13 @@ From now on we can run our pipeline using
 
 ```dvc repro```
 
-Nothing should happen. To convince yourself that dvc is doing a great job. Go to the data/data.txt file and change an number and run ```dvc repro``` again and commit the ```dvc.lock``` again
+Nothing should happen. To convince yourself that dvc is doing a great job. Go to the data/data.csv file and change an number and run ```dvc repro``` again and commit the ```dvc.lock``` again
 
 ```
 git commit -a -m "I changed a numer"
 ```
+
+If you want you can apply a simple change to the scripts as well and rerun the pipeline.
 
 ## 3. Experiments and metrics
 
