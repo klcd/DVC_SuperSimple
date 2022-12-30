@@ -102,6 +102,7 @@ We can now add our split stage.
 
 ```
 dvc run --name split \
+ --deps stages/split.py \
  --deps data/data.txt \
  --outs data/test_data.txt \
  --outs data/train_data.txt \
@@ -113,6 +114,7 @@ the train stage
 
 ```
 dvc run --name train \
+ --deps stages/train.py \
 --deps data/train_data.txt \
 --outs models/model.joblib \
 --params train.param \
@@ -123,6 +125,7 @@ and the final evaluation stage
 
 ```
 dvc run --name evaluate \
+--deps stages/evaluate.py \
 --deps data/test_data.txt \
 --deps data/train_data.txt \
 --deps models/model.joblib \
@@ -158,6 +161,8 @@ Nothing should happen. To convince yourself that dvc is doing a great job. Go to
 ```
 git commit -a -m "I changed a numer"
 ```
+
+If you want you can apply a simple change to the scripts as well and rerun the pipeline.
 
 ## 3. Experiments and metrics
 
