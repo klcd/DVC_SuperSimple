@@ -27,6 +27,7 @@ RUN apt-get install -y \
 
 RUN npm install -g vega-cli vega-lite
 
+RUN apt-get install tree -y
 #Add user
 RUN addgroup datascientist && useradd -ms /bin/bash -g datascientist datascientist
 RUN adduser datascientist sudo

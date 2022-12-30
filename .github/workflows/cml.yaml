@@ -1,0 +1,39 @@
+name: CML & DVC
+on: [push]
+jobs:
+  train-and-report:
+    runs-on: [self-hosted, cml-docker-work]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup access to remote
+        env:
+          DAGS_HUB_USER: ${{ secrets.DAGS_HUB_USER }}
+          DAGS_HUB_PW: ${{ secrets.DAGS_HUB_PW }}
+        run: |
+          dvc remote modify origin --local auth basic
+          dvc remote modify origin --local user ${DAGS_HUB_USER}
+          dvc remote modify origin --local password ${DAGS_HUB_PW}
+      - name: Pull data
+        run: |
+          tree
+          mkdir data
+          mkdir models
+          mkdir reports
+          dvc pull -r origin
+      - name: Train model
+        run: |
+          pip install -r requirements.txt
+          dvc repro
+      #- name: Create CML report
+      #  run: |
+      #    # Compare metrics to main
+      #    git fetch --depth=1 origin main:main
+      #    dvc metrics diff --show-md main >> report.md
+      #    # Plot training loss function diff
+      #    dvc plots diff \
+      #      --target loss.csv --show-vega main > vega.json
+      #    vl2png vega.json > plot.png
+      #    echo '![](./plot.png "Training Loss")' >> report.md
+      #    cml comment create report.md
+      #  env:
+      #    REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
