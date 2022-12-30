@@ -1,0 +1,61 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python stages/split.py --config params.yaml
+    deps:
+    - path: data/data.csv
+      md5: 575cb4c6a924c24026565ee9d0418b55
+      size: 3830
+    - path: stages/split.py
+      md5: 4985d65b9ff5422b23e6f9ad6e4fed54
+      size: 1022
+    params:
+      params.yaml:
+        split.param:
+          test_fraction: 0.2
+    outs:
+    - path: data/test_data.csv
+      md5: 1fcb0e1540f2d8b880414271fd994e6a
+      size: 758
+    - path: data/train_data.csv
+      md5: 6b08307d1f5b4f4ecd26a40c2e254869
+      size: 3021
+  train:
+    cmd: python stages/train.py --config params.yaml
+    deps:
+    - path: data/train_data.csv
+      md5: 6b08307d1f5b4f4ecd26a40c2e254869
+      size: 3021
+    - path: stages/train.py
+      md5: 68b23f9991f0f4adb5bcc9e76c7e0c07
+      size: 973
+    params:
+      params.yaml:
+        train.param:
+          alpha: 4
+    outs:
+    - path: models/model_mlem
+      md5: 954b044f8a976998f2bd3aeb04734bd5
+      size: 509
+  evaluate:
+    cmd: python stages/evaluate.py --config params.yaml
+    deps:
+    - path: data/test_data.csv
+      md5: 1fcb0e1540f2d8b880414271fd994e6a
+      size: 758
+    - path: data/train_data.csv
+      md5: 6b08307d1f5b4f4ecd26a40c2e254869
+      size: 3021
+    - path: models/model_mlem
+      md5: 954b044f8a976998f2bd3aeb04734bd5
+      size: 509
+    - path: stages/evaluate.py
+      md5: fa8fb762bf9aa5343462535621e47b49
+      size: 1873
+    outs:
+    - path: reports/metrics.json
+      md5: caef259a359bf00ad33b077a6c55a51b
+      size: 130
+    - path: reports/result.csv
+      md5: 68ae5448b170b921f27a1ebcefa18be4
+      size: 6219
