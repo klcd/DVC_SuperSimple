@@ -2,5 +2,6 @@ dvc_plots
 data
 reports
 models
+utilities/env_variables.sh
 __pycache__/
 *pyc

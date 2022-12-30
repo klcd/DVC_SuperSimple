@@ -2,7 +2,7 @@ stages:
   split:
     cmd: python stages/split.py --config params.yaml
     deps:
-    - data/data.csv
+    - initial_data/data.csv
     - stages/split.py
     params:
     - split.param
