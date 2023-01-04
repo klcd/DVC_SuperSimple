@@ -84,6 +84,8 @@ git commit -m "dvc init"
 
 ## 1.1 Add the initial data
 
+## 1.1 Add the initial data
+
 ## 2. Adding stages
 
 In order to use dvc efficiently we need to create a pipeline.
