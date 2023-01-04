@@ -1,6 +1,9 @@
 dvc_plots
 data
+initial_data
+utilities/env_variables.sh
 reports
 models
 __pycache__/
 *pyc
+testing.ipynb
