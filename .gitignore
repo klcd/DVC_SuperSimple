@@ -4,3 +4,4 @@ reports
 models
 __pycache__/
 *pyc
+utilities/env_variables.sh
