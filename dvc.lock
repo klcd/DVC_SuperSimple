@@ -4,7 +4,7 @@ stages:
     cmd: python stages/split.py --config params.yaml
     deps:
     - path: initial_data/data.csv
-      md5: 575cb4c6a924c24026565ee9d0418b55
+      md5: 17706a4c84481183ddfae1e820f8b796
       size: 3830
     - path: stages/split.py
       md5: 4985d65b9ff5422b23e6f9ad6e4fed54
@@ -15,17 +15,17 @@ stages:
           test_fraction: 0.2
     outs:
     - path: data/test_data.csv
-      md5: e39e16818312e681ae19f1626241c7a4
-      size: 750
+      md5: 3123f66b3a551016660067d4f0a87064
+      size: 762
     - path: data/train_data.csv
-      md5: 7756cbd3245ed74f6ec9dc7e403cd217
-      size: 3029
+      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
+      size: 3017
   train:
     cmd: python stages/train.py --config params.yaml
     deps:
     - path: data/train_data.csv
-      md5: 7756cbd3245ed74f6ec9dc7e403cd217
-      size: 3029
+      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
+      size: 3017
     - path: stages/train.py
       md5: 6a42e03efabc29c0b4a03921edd40cdf
       size: 973
@@ -35,27 +35,27 @@ stages:
           alpha: 4
     outs:
     - path: models/model_mlem
-      md5: ab1ac1ddc530a0ebb23754d8ee635070
+      md5: 83ff5045e26aed4501ce9072174239b6
       size: 509
   evaluate:
     cmd: python stages/evaluate.py --config params.yaml
     deps:
     - path: data/test_data.csv
-      md5: e39e16818312e681ae19f1626241c7a4
-      size: 750
+      md5: 3123f66b3a551016660067d4f0a87064
+      size: 762
     - path: data/train_data.csv
-      md5: 7756cbd3245ed74f6ec9dc7e403cd217
-      size: 3029
+      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
+      size: 3017
     - path: models/model_mlem
-      md5: ab1ac1ddc530a0ebb23754d8ee635070
+      md5: 83ff5045e26aed4501ce9072174239b6
       size: 509
     - path: stages/evaluate.py
       md5: fa8fb762bf9aa5343462535621e47b49
       size: 1873
     outs:
     - path: reports/metrics.json
-      md5: 7afb7eb4f7f9ac8b11bb7b9bc2534223
+      md5: d37ee6b2f2c169e816bf8cc87dfe38b7
       size: 130
     - path: reports/result.csv
-      md5: 489d37251e2c4fb80efc19bd31d6c581
-      size: 6231
+      md5: a57338d4bca8453e08002a44e35e927e
+      size: 6225
