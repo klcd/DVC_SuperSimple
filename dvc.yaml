@@ -25,7 +25,10 @@ stages:
     - data/train_data.csv
     - models/model_mlem
     - stages/evaluate.py
-    outs:
-    - reports/result.csv
     metrics:
     - reports/metrics.json
+    plots:
+    - reports/result.csv:
+        x: x
+        y: y
+        title: Example
