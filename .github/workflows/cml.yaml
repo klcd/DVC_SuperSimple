@@ -2,7 +2,7 @@ name: CML & DVC
 on: [push]
 jobs:
   train-and-report:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -24,6 +24,7 @@ jobs:
           mkdir models
           mkdir reports
           dvc pull -r origin
+
       - name: Train model
         run: |
           pip install -r requirements.txt
