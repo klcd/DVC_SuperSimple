@@ -1,5 +1,5 @@
 name: CML & DVC
-on: [branch_protection_rule]
+on: [push]
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
