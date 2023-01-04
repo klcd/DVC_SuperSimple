@@ -15,7 +15,17 @@ RUN pip3 install python-box[all]~=6.0
 RUN pip3 install mlem
 RUN pip3 install ipykernel
 
+#Install CML iterative
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN apt-get update
+RUN apt-get install -y nodejs
+RUN npm i -g @dvcorg/cml
 
+RUN apt-get install -y \
+  libcairo2-dev libfontconfig-dev \
+  libgif-dev libjpeg-dev libpango1.0-dev librsvg2-dev
+
+RUN npm install -g vega-cli vega-lite
 
 #Add user
 RUN addgroup datascientist && useradd -ms /bin/bash -g datascientist datascientist
