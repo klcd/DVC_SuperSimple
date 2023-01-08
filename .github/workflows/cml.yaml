@@ -16,13 +16,9 @@ jobs:
       - name: Pull data
         run: |
           tree
-          mkdir data
-          mkdir models
-          mkdir reports
           dvc pull -r origin
       - name: Train model
         run: |
-          pip install -r requirements.txt
           dvc repro
       #- name: Create CML report
       #  run: |
