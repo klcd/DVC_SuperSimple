@@ -235,3 +235,22 @@ This is the end of the introduction but there is a lot more. For example,
 - there is a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=Iterative.dvc)
 - define [data](https://dvc.org/doc/use-cases/data-registry)/[model](https://dvc.org/doc/use-cases/model-registry) registries to collaborate
 
+
+# Add azure remote
+
+Create a azure blob storage as described in this [blog](https://iterative.ai/blog/azure-remotes-in-dvc). You will setup a storage account <account> and storage container <container> inside of it.
+
+The remote is added by dvc wit the following command
+```
+dvc remote add -d <remote> azure://<container>
+```
+and then connected with
+```
+dvc remote modify <remote> account_name <account>
+```
+
+To identify you log in with the azure cli using `az login`. In case you have multiple subscriptions you need to set the one under which the storage account is registered with
+```
+az account set --subscription <id>
+```
+

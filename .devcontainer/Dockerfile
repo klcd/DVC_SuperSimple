@@ -15,7 +15,9 @@ RUN pip3 install python-box[all]~=6.0
 RUN pip3 install mlem
 RUN pip3 install ipykernel
 
-
+#Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+RUN pip3 install dvc[azure]
 
 #Add user
 RUN addgroup datascientist && useradd -ms /bin/bash -g datascientist datascientist
