@@ -2,4 +2,3 @@
     remote = azure
 ['remote "azure"']
     url = azure://dvcsetupcontainer
-    account_name = dvcremotestoragesetup
