@@ -65,7 +65,7 @@ but now we will let ```dvc``` handle this for us and build a pipeline.
 # DVC Pipeline Tutorial
 
 
-## 1. Initializing DVC
+## Initializing DVC
 
 In your project directory, lets start a new branch
 
@@ -82,9 +82,29 @@ to initialise dvc. Then create a init commit
 git commit -m "dvc init"
 ```
 
-## 1.1 Add the initial data
+## Setting up a dagshub remote
 
-## 2. Adding stages
+Having a dagshub account we can connect our Github repository directly. A external data
+remote is created automatically for us by dagshub and we connect to it
+
+```
+dvc remote add origin s3://dvc
+dvc remote modify origin  endpointurl <your_remote>
+```
+
+```
+dvc remote modify origin --local access_key_id <your_key_id>
+dvc remote modify origin --local secret_access_key <your_key>
+```
+
+We can now add and push data using `dvc` such that it is directly associated with a git commit.
+
+```
+dvc add initial_data/data.csv
+dvc add initial_data/underlying_data.csv
+```
+
+## Adding stages
 
 In order to use dvc efficiently we need to create a pipeline.
 Therefore we have created scripts that perform minimal task such that our pipeline runs very fast.
@@ -166,7 +186,7 @@ git commit -a -m "I changed a numer"
 
 If you want you can apply a simple change to the scripts as well and rerun the pipeline.
 
-## 3. Experiments and metrics
+## Experiments and metrics
 
 In the process of experimenting we want to track our metrics. Therefore define what these are and where they are saved. This happened at the stage definition using the (--metrics, -m) tag. But here we could do it also direclty in the  `dvc.yaml` file.
 
@@ -187,7 +207,7 @@ Note for pipelines that are running longer. There is also a possibility to creat
 
 Now after we run a new experiment with `dvc exp run -S train.param.alpha=1.0`. We can use `dvc metrics diff` to compare the metrics with the last commit. If the experiment yields better results we can commit it again.
 
-## 4. Plots
+## Plots
 
 Now we want to add plots to look a experiments and especially to compare them.
 
@@ -215,21 +235,4 @@ More:
     - [Different examples](https://dvc.org/doc/command-reference/plots/show)
     - [Custom plots with vega templates]
 
-
-
-Finally, to restart the tutorial from the beginning we can use
-
-```
-dvc destroy
-```
-
-to remove everything related to dvc
-
-This is the end of the introduction but there is a lot more. For example,
-
-- we can track the training of a model using [DVCLive](https://dvc.org/doc/dvclive)
-- use remote storage for our data
-- take remote machines to train our model using CML
-- there is a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=Iterative.dvc)
-- define [data](https://dvc.org/doc/use-cases/data-registry)/[model](https://dvc.org/doc/use-cases/model-registry) registries to collaborate
 
