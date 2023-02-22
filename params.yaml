@@ -13,7 +13,7 @@ train:
   outputs:
     model_mlem: models/model_mlem
   param:
-    alpha: 4
+    alpha: 2
 
 evaluate:
   inputs:

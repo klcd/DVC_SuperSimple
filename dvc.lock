@@ -32,10 +32,10 @@ stages:
     params:
       params.yaml:
         train.param:
-          alpha: 4
+          alpha: 2
     outs:
     - path: models/model_mlem
-      md5: f2769b04ec4b6427af4498a073b9674c
+      md5: 3af27323cc1a2cd512f09f92320655dc
       size: 509
   evaluate:
     cmd: python stages/evaluate.py --config params.yaml
@@ -47,15 +47,15 @@ stages:
       md5: bc93e2f972f889606eb64879f1bf6721
       size: 2920
     - path: models/model_mlem
-      md5: f2769b04ec4b6427af4498a073b9674c
+      md5: 3af27323cc1a2cd512f09f92320655dc
       size: 509
     - path: stages/evaluate.py
       md5: fa8fb762bf9aa5343462535621e47b49
       size: 1873
     outs:
     - path: reports/metrics.json
-      md5: cee448013347b1a61d932e4bde9ecb35
-      size: 133
+      md5: bc2ccf45ca3c8903c6555627761bdef7
+      size: 132
     - path: reports/result.csv
-      md5: eacc30f9f83f18e7f71796b3cf02f3d7
-      size: 5909
+      md5: 2784178328e52503ad92e6e58a981d96
+      size: 5917
