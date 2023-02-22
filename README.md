@@ -170,9 +170,14 @@ Lets add this two files to git
 
 ```
 git add dvc.lock dvc.yaml
-git commit -m "First pipeline run"
+git commit -m "Create Pipeline"
 ```
 
+and push all files to be tracked with dvc
+
+```
+dvc push -r origin
+```
 
 From now on we can run our pipeline using
 
