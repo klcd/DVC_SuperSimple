@@ -4,8 +4,8 @@ stages:
     cmd: python stages/split.py --config params.yaml
     deps:
     - path: initial_data/data.csv
-      md5: 17706a4c84481183ddfae1e820f8b796
-      size: 3830
+      md5: c783a10125145e31950f6bf2834f2301
+      size: 3670
     - path: stages/split.py
       md5: 4985d65b9ff5422b23e6f9ad6e4fed54
       size: 1022
@@ -15,17 +15,17 @@ stages:
           test_fraction: 0.2
     outs:
     - path: data/test_data.csv
-      md5: 3123f66b3a551016660067d4f0a87064
-      size: 762
+      md5: dbf1d0d2151016e8e3e4ee4a56282546
+      size: 742
     - path: data/train_data.csv
-      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
-      size: 3017
+      md5: 10f40efe6bf259584cadaf4763b71ed1
+      size: 2911
   train:
     cmd: python stages/train.py --config params.yaml
     deps:
     - path: data/train_data.csv
-      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
-      size: 3017
+      md5: 10f40efe6bf259584cadaf4763b71ed1
+      size: 2911
     - path: stages/train.py
       md5: 6a42e03efabc29c0b4a03921edd40cdf
       size: 973
@@ -35,27 +35,27 @@ stages:
           alpha: 1.0
     outs:
     - path: models/model_mlem
-      md5: 341b96146602277aa6f07c1a793a7045
+      md5: 197f66a97ebe2ab0de349588c25b479b
       size: 516
   evaluate:
     cmd: python stages/evaluate.py --config params.yaml
     deps:
     - path: data/test_data.csv
-      md5: 3123f66b3a551016660067d4f0a87064
-      size: 762
+      md5: dbf1d0d2151016e8e3e4ee4a56282546
+      size: 742
     - path: data/train_data.csv
-      md5: 5fd0cc6544a6d4dc57dc19c292b4c735
-      size: 3017
+      md5: 10f40efe6bf259584cadaf4763b71ed1
+      size: 2911
     - path: models/model_mlem
-      md5: 341b96146602277aa6f07c1a793a7045
+      md5: 197f66a97ebe2ab0de349588c25b479b
       size: 516
     - path: stages/evaluate.py
       md5: fa8fb762bf9aa5343462535621e47b49
       size: 1873
     outs:
     - path: reports/metrics.json
-      md5: 8efeba0a3dec60a2553f68f7662ce0d2
-      size: 131
+      md5: 1623a14e8ba29a8d1d6f08a6ab26ac63
+      size: 142
     - path: reports/result.csv
-      md5: 00f196c6456435e6c066e274fd6ba270
-      size: 6221
+      md5: 9aadd4d0bd4a7a4909c26ef9aa4af875
+      size: 5892

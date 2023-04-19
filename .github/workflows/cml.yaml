@@ -2,34 +2,34 @@ name: CML & DVC
 on: [push]
 jobs:
 
-  deploy-runner:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: iterative/setup-cml@v1
-      - uses: actions/checkout@v3
+  #deploy-runner:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: iterative/setup-cml@v1
+  #    - uses: actions/checkout@v3
 
-      - name:
-        env:
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  #    - name:
+  #      env:
+  #        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  #        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  #        AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  #        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  #        REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-        run: |
-            cml runner launch \
-              --cloud "azure" \
-              --cloud-region=switzerlandnorth \
-              --cloud-type=s \
-              --name=cml-vm \
-              --labels="cml-vm"
+  #      run: |
+  #          cml runner launch \
+  #            --cloud "azure" \
+  #            --cloud-region=switzerlandnorth \
+  #            --cloud-type=s \
+  #            --name=cml-vm \
+  #            --labels="cml-vm"
 
   train-and-report:
-    needs: [deploy-runner]
-    runs-on: [self-hosted, cml-vm]
+    #needs: [deploy-runner]
+    #runs-on: [self-hosted, cml-vm]
 
-    container:
-        image: docker://cedricklinkert/dvc_super_simple:0.0.1
+    runs-on: ubuntu-latest
+    container: docker://cedricklinkert/dvc_super_simple:0.0.1
 
     steps:
       - uses: actions/checkout@v3
@@ -44,9 +44,11 @@ jobs:
           dvc remote modify azure connection_string $AZURE_STORAGE_CONNECTION_STRING
           echo $AZURE_STORAGE_CONNECTION_STRING
           dvc pull --remote azure
+          ls -a
+      - name: Setup tmate
+        uses: mxschmitt/action-tmate@v3
+
       #- name: Train model
-      #  run: |
-      #    pip install -r requirements.txt
       #    dvc repro
       #- name: Create CML report
       #  run: |

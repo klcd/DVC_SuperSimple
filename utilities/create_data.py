@@ -15,4 +15,4 @@ df = pd.DataFrame({'x':x, 'y':y+noise})
 df.to_csv(os.path.join(home,'initial_data','data.csv'), index=False)
 
 df = pd.DataFrame({'x':x, 'y':y})
-df.to_csv(os.path.join(home,'initial_data','underlying_data.csv'), index=False)
+df.to_csv(os.path.join(home,'initial_data','data.csv'), index=False)
